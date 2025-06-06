@@ -30,5 +30,15 @@ int main(int argc, char *argv[]){
     insert_record(s6, &root);
 
     print_leaf_mis(root);
+
+    student* updated = create_student("1234567890", "Alice", "Smith", 9.7, "CSE", 2025);
+    int result = update_record(updated->mis, updated, root);
+    if (result) {
+        printf("Update successful.\n");
+    } else {
+        printf("MIS not found in tree.\n");
+    }
+
+    print_leaf_mis(root);
     return 0;
 }

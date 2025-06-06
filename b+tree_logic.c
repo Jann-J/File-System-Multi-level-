@@ -190,12 +190,54 @@ void print_leaf_mis(b_plus_tree root) {
     while (root != NULL) {
         for (int i = 0; i < root->num_keys; i++) {
             printf("%s ", root->keys[i]);
+
         }
         root = root->next;
     }
     printf("\n");
 }
 
-void delete_record(char *mis){
-    
+// int delete_record(char *mis){
+    // find the record(different function for this maybe?? so we can reuse for update function as well), if found delete it return  1
+    // else return 0
+
+    //scenerios
+    // last key in leaf -> direct delete
+    // not last -> sort the leaf as well
+    // the only one in leaf -> delete the whole leaf
+    // if it is key in internal nodes then...well a lot to do
+// }
+
+node* find_leaf(node* root, char* mis) {
+    if (!root) return NULL;
+
+    node* curr = root;
+    while (!curr->is_leaf) {
+        int i = 0;
+        while (i < curr->num_keys && strcmp(mis, curr->keys[i]) >= 0)
+            i++;
+        curr = curr->children[i];
+    }
+    return curr;
+}
+
+int update_record(char *mis, student *updated, b_plus_tree btree){
+    if(btree == NULL) return 0;
+
+    node *leaf = find_leaf(btree, mis); //write this later
+
+    if(!leaf) return 0;
+
+    for(int i = 0; i < leaf->num_keys; i++){
+        if(strcmp(mis, leaf->student[i]->mis) == 0){
+            strcpy(leaf->student[i]->first_name, updated->first_name);
+            strcpy(leaf->student[i]->last_name, updated->last_name);
+            leaf->student[i]->cgpa = updated->cgpa;
+            strcpy(leaf->student[i]->branch, updated->branch);
+            leaf->student[i]->year_of_passing = updated->year_of_passing;
+
+            return 1;
+        }
+    }
+    return 0;
 }

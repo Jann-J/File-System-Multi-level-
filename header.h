@@ -33,13 +33,17 @@ typedef node *b_plus_tree;
 // Helper functions
 void init_tree(b_plus_tree* btree);
 node* create_node(int is_leaf);
+node* find_leaf(node* root, char* mis);
 
 // Insert Record
 void insert_record(student* s, b_plus_tree *btree);
 node* insert_internal(node* root, student* s, char* key, char* upKey, node** newChild);
 
-// Delete Record
+// Update record
+int update_record(char *mis, student *updated, b_plus_tree btree);
 
+// Delete Record
+int delete_record(char *mis);
 
 // Print records
 void print_leaf_mis(b_plus_tree root);
