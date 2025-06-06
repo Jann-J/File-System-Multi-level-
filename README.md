@@ -47,3 +47,18 @@ Managing thousands of student records demands a structure that is:
 
 The **B+ Tree** satisfies all these requirements. Unlike arrays or linked lists, it doesn’t slow down as data grows. And unlike hash tables, it maintains **sorted order**, making it ideal for both **precise lookups and range queries**.
 
+---
+
+## 📊 Real-world Usage in Databases
+
+Modern Database Management Systems (DBMS) like MySQL, PostgreSQL, and Oracle use B+ Trees (or their variants) as the default indexing method for most table columns.
+**Why?**
+| Feature                       |	Why DBMS Use It                                                             |
+|-------------------------------|-----------------------------------------------------------------------------|
+| Logarithmic Time Complexity	  | O(log n) ensures fast access even for millions of records                   |
+| Sorted Order	                | Makes range queries (WHERE year >= 2022) efficient and fast                 |
+| Dense Indexing	              | Every data item is accessible via the index (only leaf nodes store records) |
+| Disk Optimization	            | B+ Trees minimize disk I/O by storing multiple keys per node                |
+| Bulk Record Retrieval	        |Leaf node chaining allows efficient scanning for query results               |
+
+---
