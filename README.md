@@ -1,4 +1,4 @@
-# File-System-Multi-level-# 📚 Student Record Management System (COEP)
+# 📚 Student Record Management System (COEP)
 
 A command-line based Student Record Management System implemented in C, using a **B+ Tree** as the underlying data structure for efficient storage and querying of student records.
 
