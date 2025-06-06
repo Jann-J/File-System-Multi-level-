@@ -35,6 +35,7 @@ void insert_record(student* s, b_plus_tree *btree){
         root->num_keys = 1;
         root->student[0] = s;
 
+        
         *btree = root;
         return;
     }
