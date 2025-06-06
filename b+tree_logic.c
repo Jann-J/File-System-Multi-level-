@@ -34,7 +34,6 @@ void insert_record(student* s, b_plus_tree *btree){
         strcpy(root->keys[0], s->mis);
         root->num_keys = 1;
         root->student[0] = s;
-        printf("%s", root->student[0]->mis);
 
         *btree = root;
         return;
