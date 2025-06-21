@@ -197,6 +197,18 @@ void print_leaf_mis(b_plus_tree root) {
     printf("\n");
 }
 
+void print_student(student* s) {
+    if (!s) return;
+    printf("MIS: %s\n", s->mis);
+    printf("Name: %s %s\n", s->first_name, s->last_name);
+    printf("Branch: %s\n", s->branch);
+    printf("CGPA: %.2f\n", s->cgpa);
+    printf("Year of Passing: %d\n", s->year_of_passing);
+    printf("Division: %d\n", s->division);
+    printf("------\n");
+}
+
+
 // int delete_record(char *mis){
     // find the record(different function for this maybe?? so we can reuse for update function as well), if found delete it return  1
     // else return 0

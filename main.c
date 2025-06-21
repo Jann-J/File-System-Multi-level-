@@ -113,5 +113,7 @@ int main(int argc, char *argv[]){
     }
 
     print_leaf_mis(root);
+
+    print_range_mis(root, "1234567890", "3456767890");
     return 0;
 }
