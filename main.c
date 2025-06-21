@@ -40,16 +40,15 @@ int main(int argc, char *argv[]){
                 fgets(s->last_name, NAME_LIMIT, stdin);
                 s->last_name[strcspn(s->last_name, "\n")] = 0;
 
-                // CGPA
-                printf("CGPA: ");
-                scanf("%f", &s->cgpa); getchar();
-
                 // SGPA (8 semesters)
                 printf("Enter SGPA for 8 semesters (space separated, -1 if not available yet):\n");
                 for (int i = 0; i < NUM_OF_SEM; i++) {
-                    scanf("%d", &s->sgpa[i]);
+                    scanf("%f", &s->sgpa[i]);
                 }
                 getchar(); // clear newline
+
+                // calculate cgpa
+                s->cgpa = calculate_cgpa(s->sgpa);
 
                 // Branch
                 printf("Branch: ");
@@ -57,7 +56,7 @@ int main(int argc, char *argv[]){
                 s->branch[strcspn(s->branch, "\n")] = 0;
 
                 // Year of Passing
-                printf("Batch (year): ");
+                printf("Year of passing: ");
                 scanf("%d", &s->year_of_passing); getchar();
 
                 // Admission Mode
@@ -78,7 +77,6 @@ int main(int argc, char *argv[]){
                 fgets(mis, MIS_LIMIT, stdin); 
                 mis[strcspn(mis, "\n")] = 0;
 
-                // Search for student
                 student* existing = search_by_mis(root, mis);
 
                 if (!existing) {
@@ -86,30 +84,48 @@ int main(int argc, char *argv[]){
                     break;
                 }
 
-                // Display current data
+                // Show current info
                 printf("Current student details:\n");
                 print_student(existing);
-                
-                s = (student*) malloc(sizeof(student));
-                strcpy(s->mis, mis);
-                printf("Enter updated First name: "); fgets(s->first_name, NAME_LIMIT, stdin); s->first_name[strcspn(s->first_name, "\n")] = 0;
-                printf("Enter updated Last name: "); fgets(s->last_name, NAME_LIMIT, stdin); s->last_name[strcspn(s->last_name, "\n")] = 0;
-                printf("Enter updated CGPA: "); scanf("%f", &s->cgpa); getchar();
-                printf("Enter updated Branch: "); fgets(s->branch, NAME_LIMIT, stdin); s->branch[strcspn(s->branch, "\n")] = 0;
-                printf("Enter updated Batch: "); scanf("%d", &s->year_of_passing); getchar();
 
-                if (update_record(mis, s, root)) {
-                    printf("Record updated.\n");
-                } else {
-                    printf("Error in updating record.\n");
+                // Update only specific fields
+                printf("Enter updated First name (or press enter to keep '%s'): ", existing->first_name);
+                char temp[NAME_LIMIT];
+                fgets(temp, NAME_LIMIT, stdin);
+                if (temp[0] != '\n') {
+                    temp[strcspn(temp, "\n")] = 0;
+                    strcpy(existing->first_name, temp);
                 }
+
+                printf("Enter updated Last name (or press enter to keep '%s'): ", existing->last_name);
+                fgets(temp, NAME_LIMIT, stdin);
+                if (temp[0] != '\n') {
+                    temp[strcspn(temp, "\n")] = 0;
+                    strcpy(existing->last_name, temp);
+                }
+
+                printf("Enter updated Branch (or press enter to keep '%s'): ", existing->branch);
+                fgets(temp, NAME_LIMIT, stdin);
+                if (temp[0] != '\n') {
+                    temp[strcspn(temp, "\n")] = 0;
+                    strcpy(existing->branch, temp);
+                }
+
+                printf("Enter updated Batch (or -1 to keep %d): ", existing->year_of_passing);
+                int batch;
+                if (scanf("%d", &batch) == 1 && batch != -1) {
+                    existing->year_of_passing = batch;
+                }
+                getchar(); // flush newline
+
+                printf("Record updated successfully.\n");
                 break;
             }
             case 3:
-                printf("Feature under development: filtering by branch/year. Coming soon!\n");
+                printf("Feature under development: filtering by branch/year or both. Coming soon!\n");
                 break;
             case 4:
-                printf("Enter MIS of student to update: ");
+                printf("Enter MIS to search: ");
                 fgets(mis, MIS_LIMIT, stdin); 
                 mis[strcspn(mis, "\n")] = 0;
 
@@ -119,6 +135,7 @@ int main(int argc, char *argv[]){
                 if (!existing) {
                     printf("Student with MIS %s not found.\n", mis);
                 }
+                print_student(existing);
                 break;
             case 5:
                 printf("Feature under development: delete functionality.\n");

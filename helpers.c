@@ -11,6 +11,16 @@ student* create_student(char* mis, char* first_name, char* last_name, float cgpa
     return s;
 }
 
+float calculate_cgpa(float *sgpas){
+    float cgpa = 0;
+    int i = 0;
+    for(i = 0; i < NUM_OF_SEM && sgpas[i] != -1; i++) {
+        cgpa += sgpas[i];
+    }
+    cgpa /= i;
+    return cgpa;
+}
+
 void print_leaf_mis(b_plus_tree root) {
     while (!root->is_leaf) {
         root = root->children[0];

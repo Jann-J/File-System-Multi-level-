@@ -28,7 +28,6 @@ void print_range_mis(node *root, char *start_mis, char *end_mis){
 
 
 // search based on
-// mis
 // name -> information with all the student with name (optional)
 student* search_by_mis(node* root, char* mis) {
     node* leaf = find_leaf(root, mis);

@@ -12,7 +12,7 @@ typedef struct Student {
     char first_name[NAME_LIMIT];
     char last_name[NAME_LIMIT];
     float cgpa;
-    int sgpa[NUM_OF_SEM];
+    float sgpa[NUM_OF_SEM];
     char branch[NAME_LIMIT];
     int year_of_passing;
     int admission_through;         // 0 -> mht-cet 1-> jee_mains
@@ -36,6 +36,7 @@ node* create_node(int is_leaf);
 node* find_leaf(node* root, char* mis);
 void print_student(student* s);
 student* create_student(char* mis, char* first_name, char* last_name, float cgpa, char* branch, int yop);
+float calculate_cgpa(float *sgpas);
 
 // Insert Record
 void insert_record(student* s, b_plus_tree *btree);
