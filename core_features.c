@@ -30,3 +30,14 @@ void print_range_mis(node *root, char *start_mis, char *end_mis){
 // search based on
 // mis
 // name -> information with all the student with name (optional)
+student* search_by_mis(node* root, char* mis) {
+    node* leaf = find_leaf(root, mis);
+    if (!leaf) return NULL;
+
+    for (int i = 0; i < leaf->num_keys; i++) {
+        if (strcmp(leaf->keys[i], mis) == 0)
+            return leaf->student[i];
+    }
+
+    return NULL;
+}

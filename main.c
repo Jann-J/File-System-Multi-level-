@@ -11,7 +11,7 @@ student* create_student(char* mis, char* first_name, char* last_name, float cgpa
     return s;
 }
 
-/*
+
 int main(int argc, char *argv[]){
     b_plus_tree root;
     init_tree(&root);
@@ -48,8 +48,21 @@ int main(int argc, char *argv[]){
             }
             case 2: {
                 printf("Enter MIS of student to update: ");
-                fgets(mis, MIS_LIMIT, stdin); mis[strcspn(mis, "\n")] = 0;
+                fgets(mis, MIS_LIMIT, stdin); 
+                mis[strcspn(mis, "\n")] = 0;
 
+                // Search for student
+                student* existing = search_by_mis(root, mis);
+
+                if (!existing) {
+                    printf("Student with MIS %s not found.\n", mis);
+                    break;
+                }
+
+                // Display current data
+                printf("Current student details:\n");
+                print_student(existing);
+                
                 s = (student*) malloc(sizeof(student));
                 strcpy(s->mis, mis);
                 printf("Enter updated First name: "); fgets(s->first_name, NAME_LIMIT, stdin); s->first_name[strcspn(s->first_name, "\n")] = 0;
@@ -61,7 +74,7 @@ int main(int argc, char *argv[]){
                 if (update_record(mis, s, root)) {
                     printf("Record updated.\n");
                 } else {
-                    printf("Student not found.\n");
+                    printf("Error in updating record.\n");
                 }
                 break;
             }
@@ -69,7 +82,16 @@ int main(int argc, char *argv[]){
                 printf("Feature under development: filtering by branch/year. Coming soon!\n");
                 break;
             case 4:
-                printf("Feature under development: MIS/name-based search.\n");
+                printf("Enter MIS of student to update: ");
+                fgets(mis, MIS_LIMIT, stdin); 
+                mis[strcspn(mis, "\n")] = 0;
+
+                // Search for student
+                student* existing = search_by_mis(root, mis);
+
+                if (!existing) {
+                    printf("Student with MIS %s not found.\n", mis);
+                }
                 break;
             case 5:
                 printf("Feature under development: delete functionality.\n");
@@ -82,8 +104,9 @@ int main(int argc, char *argv[]){
         }
     }
 }
-*/
 
+
+/*
 int main(int argc, char *argv[]){
     b_plus_tree root;
     init_tree(&root);
@@ -117,3 +140,4 @@ int main(int argc, char *argv[]){
     print_range_mis(root, "1234567890", "3456767890");
     return 0;
 }
+    */

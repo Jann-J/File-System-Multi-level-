@@ -15,7 +15,7 @@ typedef struct Student {
     int sgpa[NUM_OF_SEM];
     char branch[NAME_LIMIT];
     int year_of_passing;
-    // jee or mains
+    int admission_through;         // 0 -> mht-cet 1-> jee_mains
     int division;
 } student;
 
@@ -49,5 +49,7 @@ int delete_record(char *mis);
 // Range query based on mis
 void print_range_mis(node *root, char *start_mis, char *end_mis);
 
+// Search by mis
+student* search_by_mis(node* root, char* mis);
 // Print all records
 void print_leaf_mis(b_plus_tree root);
