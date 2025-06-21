@@ -35,6 +35,7 @@ void init_tree(b_plus_tree* btree);
 node* create_node(int is_leaf);
 node* find_leaf(node* root, char* mis);
 void print_student(student* s);
+student* create_student(char* mis, char* first_name, char* last_name, float cgpa, char* branch, int yop);
 
 // Insert Record
 void insert_record(student* s, b_plus_tree *btree);

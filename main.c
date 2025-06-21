@@ -1,16 +1,5 @@
 #include"header.h"
 
-student* create_student(char* mis, char* first_name, char* last_name, float cgpa, char* branch, int yop) {
-    student* s = (student*)malloc(sizeof(student));
-    strcpy(s->mis, mis);
-    strcpy(s->first_name, first_name);
-    strcpy(s->last_name, last_name);
-    s->cgpa = cgpa;
-    strcpy(s->branch, branch);
-    s->year_of_passing = yop;
-    return s;
-}
-
 
 int main(int argc, char *argv[]){
     b_plus_tree root;
@@ -35,16 +24,54 @@ int main(int argc, char *argv[]){
         switch (choice) {
             case 1: {
                 s = (student*) malloc(sizeof(student));
-                printf("Enter MIS: "); fgets(s->mis, MIS_LIMIT, stdin); s->mis[strcspn(s->mis, "\n")] = 0;
-                printf("First name: "); fgets(s->first_name, NAME_LIMIT, stdin); s->first_name[strcspn(s->first_name, "\n")] = 0;
-                printf("Last name: "); fgets(s->last_name, NAME_LIMIT, stdin); s->last_name[strcspn(s->last_name, "\n")] = 0;
-                printf("CGPA: "); scanf("%f", &s->cgpa); getchar();
-                printf("Branch: "); fgets(s->branch, NAME_LIMIT, stdin); s->branch[strcspn(s->branch, "\n")] = 0;
-                printf("Batch (year): "); scanf("%d", &s->year_of_passing); getchar();
+
+                // MIS
+                printf("Enter MIS: ");
+                fgets(s->mis, MIS_LIMIT, stdin);
+                s->mis[strcspn(s->mis, "\n")] = 0;
+
+                // First Name
+                printf("First name: ");
+                fgets(s->first_name, NAME_LIMIT, stdin);
+                s->first_name[strcspn(s->first_name, "\n")] = 0;
+
+                // Last Name
+                printf("Last name: ");
+                fgets(s->last_name, NAME_LIMIT, stdin);
+                s->last_name[strcspn(s->last_name, "\n")] = 0;
+
+                // CGPA
+                printf("CGPA: ");
+                scanf("%f", &s->cgpa); getchar();
+
+                // SGPA (8 semesters)
+                printf("Enter SGPA for 8 semesters (space separated, -1 if not available yet):\n");
+                for (int i = 0; i < NUM_OF_SEM; i++) {
+                    scanf("%d", &s->sgpa[i]);
+                }
+                getchar(); // clear newline
+
+                // Branch
+                printf("Branch: ");
+                fgets(s->branch, NAME_LIMIT, stdin);
+                s->branch[strcspn(s->branch, "\n")] = 0;
+
+                // Year of Passing
+                printf("Batch (year): ");
+                scanf("%d", &s->year_of_passing); getchar();
+
+                // Admission Mode
+                printf("Admission Through (0 - MHT-CET, 1 - JEE Mains): ");
+                scanf("%d", &s->admission_through); getchar();
+
+                // Division
+                printf("Division (enter -1 if not allotted): ");
+                scanf("%d", &s->division); getchar();
 
                 insert_record(s, &root);
                 printf("Student inserted.\n");
                 break;
+
             }
             case 2: {
                 printf("Enter MIS of student to update: ");
